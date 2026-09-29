@@ -1,0 +1,5 @@
+import { ResourceManager } from "@/features/admin/resource-manager";
+
+export default function GamesPage() {
+  return <ResourceManager title="Videojuegos" eyebrow="Catálogo administrativo" endpoint="/admin/videojuegos" idKey="id_videojuego" initial={{ titulo: "", genero: "", plataforma: "", anio_lanzamiento: 2024, calificacion: 8, desarrollador: "", jugadores: 1 }} fields={[{ key: "titulo", label: "Título", required: true }, { key: "genero", label: "Género", required: true }, { key: "plataforma", label: "Plataforma", required: true }, { key: "anio_lanzamiento", label: "Año", type: "number", min: 1958, max: 2200, required: true }, { key: "calificacion", label: "Calificación", type: "number", min: 0, max: 10, step: "0.1", required: true }, { key: "desarrollador", label: "Desarrollador", required: true }, { key: "jugadores", label: "Jugadores", type: "number", min: 1, required: true }]} columns={[{ key: "titulo", label: "Título" }, { key: "genero", label: "Género" }, { key: "plataforma", label: "Plataforma" }, { key: "anio_lanzamiento", label: "Año" }, { key: "calificacion", label: "Calificación" }]} />;
+}

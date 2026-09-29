@@ -1,0 +1,39 @@
+[project]
+name = "cineplay-backend"
+version = "0.1.0"
+description = "API segura de CinePlay AI"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+  "alembic==1.16.5",
+  "email-validator==2.3.0",
+  "fastapi==0.116.1",
+  "langchain-core==0.3.76",
+  "langchain-groq==0.3.8",
+  "pydantic-settings==2.10.1",
+  "pwdlib[argon2]==0.2.1",
+  "PyJWT==2.10.1",
+  "sqlalchemy==2.0.43",
+  "uvicorn[standard]==0.35.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "httpx==0.28.1",
+  "pytest==8.4.2",
+  "pytest-cov==6.2.1",
+  "ruff==0.13.1"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.setuptools.packages.find]
+include = ["app*"]

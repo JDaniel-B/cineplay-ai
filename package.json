@@ -1,0 +1,31 @@
+{
+  "name": "cineplay-ai",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.21.0",
+  "engines": {
+    "node": ">=24 <25",
+    "pnpm": ">=11 <12"
+  },
+  "scripts": {
+    "predev": "pnpm db:migrate && pnpm db:seed && pnpm db:seed:catalog",
+    "dev": "node ./node_modules/concurrently/dist/bin/concurrently.js --kill-others --names API,WEB --prefix-colors magenta,cyan \"pnpm dev:backend\" \"pnpm dev:frontend\"",
+    "dev:frontend": "pnpm --dir apps/frontend dev",
+    "dev:backend": ".\\apps\\backend\\.venv\\Scripts\\python.exe -m uvicorn app.main:app --app-dir apps/backend --reload --port 8000",
+    "build": "pnpm --dir apps/frontend build",
+    "lint": "pnpm --dir apps/frontend lint",
+    "typecheck": "pnpm --dir apps/frontend typecheck",
+    "test:frontend": "pnpm --dir apps/frontend test",
+    "check:frontend": "pnpm lint && pnpm typecheck && pnpm test:frontend && pnpm build",
+    "test:backend": ".\\apps\\backend\\.venv\\Scripts\\python.exe -m pytest apps/backend/tests",
+    "lint:backend": ".\\apps\\backend\\.venv\\Scripts\\python.exe -m ruff check apps/backend/app apps/backend/tests apps/backend/scripts",
+    "format:backend": ".\\apps\\backend\\.venv\\Scripts\\python.exe -m ruff format apps/backend/app apps/backend/tests apps/backend/scripts",
+    "db:migrate": ".\\apps\\backend\\.venv\\Scripts\\python.exe -m alembic -c apps/backend/alembic.ini upgrade head",
+    "db:seed": ".\\apps\\backend\\.venv\\Scripts\\python.exe apps/backend/scripts/seed.py",
+    "db:seed:catalog": ".\\apps\\backend\\.venv\\Scripts\\python.exe apps/backend/scripts/seed_large_catalog.py",
+    "check": "pnpm lint:backend && pnpm check:frontend && pnpm test:backend"
+  },
+  "devDependencies": {
+    "concurrently": "9.2.3"
+  }
+}
